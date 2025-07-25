@@ -3,11 +3,11 @@ import axiosInstance from '../../services/axiosInstance'
 
 const CartModal = ({cart, closeModal, updateItemQuantity}) => {
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center px-4">
-            <div className="bg-white p-6 rounded-lg w-full max-w-lg relative shadow-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black bg-opacity-50">
+            <div className="relative w-full max-w-lg p-6 bg-white rounded-lg shadow-lg">
                 <button
                     onClick={closeModal}
-                    className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:outline-none"
+                    className="absolute text-gray-500 top-4 right-4 hover:text-gray-700 focus:outline-none"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -25,25 +25,25 @@ const CartModal = ({cart, closeModal, updateItemQuantity}) => {
                     </svg>
                 </button>
 
-                <h2 className="text-xl  font-semibold mb-8 text-center text-color1">Keranjang Belanja</h2>
+                <h2 className="mb-8 text-xl font-semibold text-center text-color1">Keranjang Belanja</h2>
                 {
                     cart.length > 0 ? (
                         <>
                             <div className="overflow-y-auto max-h-96">
                                 <ul>
                                     {cart.map((item, index) => (
-                                        <li key={index} className="flex justify-between items-center mb-4 border-b pb-4">
+                                        <li key={index} className="flex items-center justify-between pb-4 mb-4 border-b">
                                             <div className="flex items-center">
                                                 <img
-                                                    src={`${axiosInstance.defaults.baseURL}/storage/${item.thumbnail}`}                                     
+                                                    src={`${axiosInstance.defaults.baseURL}${item.thumbnail}`}                                     
                                                     alt={item.name}
-                                                    className="w-16 h-16 object-cover rounded-md mr-4"
+                                                    className="object-cover w-16 h-16 mr-4 rounded-md"
                                                 />
                                                 <div>
                                                     <span className="block font-medium">{item.name}</span>
                                                     <span className="text-xs">
                                                         {item.discount > 0 && (
-                                                            <span className='text-xs me-2 text-red-500'>
+                                                            <span className='text-xs text-red-500 me-2'>
                                                                 <s>Rp. {item.price}</s>
                                                             </span>
                                                         )}
@@ -54,14 +54,14 @@ const CartModal = ({cart, closeModal, updateItemQuantity}) => {
                                             <div className="flex items-center space-x-4">
                                                 <button
                                                     onClick={() => updateItemQuantity(index, "decrease")}
-                                                    className="px-3 py-1 bg-gray-200 rounded text-sm text-gray-600 hover:bg-gray-300 focus:outline-none"
+                                                    className="px-3 py-1 text-sm text-gray-600 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none"
                                                 >
                                                     -
                                                 </button>
-                                                <span className=" text-xs">{item.quantity}</span>
+                                                <span className="text-xs ">{item.quantity}</span>
                                                 <button
                                                     onClick={() => updateItemQuantity(index, "increase")}
-                                                    className="px-3 py-1 bg-gray-200 rounded text-sm text-gray-600 hover:bg-gray-300 focus:outline-none"
+                                                    className="px-3 py-1 text-sm text-gray-600 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none"
                                                 >
                                                     +
                                                 </button>
@@ -71,22 +71,22 @@ const CartModal = ({cart, closeModal, updateItemQuantity}) => {
                                 </ul>
                             </div>
 
-                            <div className="flex justify-between items-center mt-6">
+                            <div className="flex items-center justify-between mt-6">
                                 <span className="">Total ({cart.length} Produk):</span>
                                 <span className="font-semibold text-color1">
                                     Rp {cart.reduce((acc, item) => acc + (item.price-item.discount) * item.quantity, 0)}
                                 </span>
                             </div>
-                            <div className="mt-6 flex justify-between space-x-4">
+                            <div className="flex justify-between mt-6 space-x-4">
                                 <button
                                     onClick={closeModal}
-                                    className="w-full bg-gray-200 text-gray-800 px-4 py-2 text-sm rounded  hover:bg-gray-300"
+                                    className="w-full px-4 py-2 text-sm text-gray-800 bg-gray-200 rounded hover:bg-gray-300"
                                 >
                                     Tutup
                                 </button>
                                 <a
                                     href="/checkout"
-                                    className="w-full bg-color1 text-white text-center px-4 py-2 text-sm rounded hover:bg-red-800"
+                                    className="w-full px-4 py-2 text-sm text-center text-white rounded bg-color1 hover:bg-red-800"
                                 >
                                     Checkout
                                 </a>
@@ -95,9 +95,9 @@ const CartModal = ({cart, closeModal, updateItemQuantity}) => {
                     )
                     : 
                     (
-                        <div className="flex flex-col  justify-center items-center p-8">
-                                <img src="/img/empty-cart.png" className="w-28 mb-8" alt="" />
-                                <p className="text-slate-700 text-sm">Tidak ada product di keranjang!</p>
+                        <div className="flex flex-col items-center justify-center p-8">
+                                <img src="/img/empty-cart.png" className="mb-8 w-28" alt="" />
+                                <p className="text-sm text-slate-700">Tidak ada product di keranjang!</p>
                         
 
                         </div>

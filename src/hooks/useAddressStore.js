@@ -3,10 +3,12 @@ import axiosInstance from "../services/axiosInstance";
 const BASE_ADDRESS_ORIGIN = "18757";
 
 export const useAddressStore = create((set, get) => {
+
     const updateAddresses = (updatedAddresses) => {
         localStorage.setItem("addresses", JSON.stringify(updatedAddresses));
         set({ addresses: updatedAddresses });
         console.log("Addresses updated:", updatedAddresses); // Log perubahan
+
     };
 
     return {
@@ -49,6 +51,7 @@ export const useAddressStore = create((set, get) => {
                     });
                     set({ couriers: response.data });
                     console.log("Couriers fetched:", response.data);
+
                 } catch (error) {
                     console.error("Error fetching coriers:", error);
                 }
@@ -64,6 +67,7 @@ export const useAddressStore = create((set, get) => {
         
         
     };
+
 });
 
 // Langganan perubahan di komponen

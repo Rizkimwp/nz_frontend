@@ -18,15 +18,15 @@ const ProductModal = ({ product, setModal }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center transition-all duration-300 ease-out">
-            <div className="bg-white p-6 rounded-lg w-11/12 md:w-2/3 lg:w-1/2 relative shadow-2xl transition-transform duration-300 ease-out transform scale-100 animate-fade-in-scale">
+        <div className="fixed inset-0 z-50 flex items-center justify-center transition-all duration-300 ease-out bg-black bg-opacity-50">
+            <div className="relative w-11/12 p-6 transition-transform duration-300 ease-out transform scale-100 bg-white rounded-lg shadow-2xl md:w-2/3 lg:w-1/2 animate-fade-in-scale">
                 {/* Tombol close */}
                 <button
                     onClick={() => {
                         setModal(false);
                         document.body.style.overflow = "auto";
                     }}
-                    className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:outline-none"
+                    className="absolute text-gray-500 top-4 right-4 hover:text-gray-700 focus:outline-none"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -45,32 +45,32 @@ const ProductModal = ({ product, setModal }) => {
                 </button>
 
                 {/* Konten modal */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                     {/* Gambar produk */}
                     <div className="w-full h-64">
                         <div className="relative w-full h-full">
                             <img
-                                src={`${axiosInstance.defaults.baseURL}/storage/${product.thumbnail}`}
+                                src={`${axiosInstance.defaults.baseURL}${product.thumbnail}`}
                                 alt="Product Thumbnail"
-                                className="absolute inset-0 w-full h-full object-cover rounded-lg"
+                                className="absolute inset-0 object-cover w-full h-full rounded-lg"
                             />
                         </div>
                     </div>
 
                     {/* Detail produk */}
-                    <div className="font-roboto space-y-4">
+                    <div className="space-y-4 font-roboto">
                         <h2 className="text-2xl text-gray-800">{product.name}</h2>
                         <p>
                             {product.discount > 0 && (
-                                <span className="me-2 text-red-500">
+                                <span className="text-red-500 me-2">
                                     <s>Rp. {product.price}</s>
                                 </span>
                             )}
-                            <span className="font-bold text-xl text-slate-700 font-roboto">
+                            <span className="text-xl font-bold text-slate-700 font-roboto">
                                 Rp. {product.price - product.discount}
                             </span>
                         </p>
-                        <p className="text-gray-500 text-sm">
+                        <p className="text-sm text-gray-500">
                             {product.description || "Deskripsi produk belum tersedia."}
                         </p>
 
@@ -79,21 +79,21 @@ const ProductModal = ({ product, setModal }) => {
                             <div className="flex items-center gap-2">
                                 <button
                                     onClick={() => setQuantity((prev) => Math.max(prev - 1, 1))}
-                                    className="bg-gray-200 text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-300 transition"
+                                    className="px-3 py-1 text-gray-700 transition bg-gray-200 rounded-lg hover:bg-gray-300"
                                 >
                                     -
                                 </button>
                                 <span className="text-lg font-medium">{quantity}</span>
                                 <button
                                     onClick={() => setQuantity((prev) => prev + 1)}
-                                    className="bg-gray-200 text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-300 transition"
+                                    className="px-3 py-1 text-gray-700 transition bg-gray-200 rounded-lg hover:bg-gray-300"
                                 >
                                     +
                                 </button>
                             </div>
                             <button
                                 onClick={handleAddToCart}
-                                className="bg-color1 text-xs text-white px-4 py-2 rounded-lg hover:bg-red-800 focus:outline-none transition"
+                                className="px-4 py-2 text-xs text-white transition rounded-lg bg-color1 hover:bg-red-800 focus:outline-none"
                             >
                                 Tambahkan ke Keranjang
                             </button>

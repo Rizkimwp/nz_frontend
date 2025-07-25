@@ -8,20 +8,20 @@ const ProductCard = ({product, handleClick}) => {
         <div onClick={handleClick} className="bg-white border cursor-pointer border-[#f6f6f6] rounded overflow-hidden  ">
             <div className='p-2 overflow-hidden md:h-46 lg:h-64'>
                 <img 
-                    src={`${axiosInstance.defaults.baseURL}/storage/${product.thumbnail}`} 
+                    src={`${axiosInstance.defaults.baseURL}${product.thumbnail}`} 
                     alt={product.name}
-                    className='w-full h-full object-cover hover:scale-110 transition-transform duration-300 ease-in-out' 
+                    className='object-cover w-full h-full transition-transform duration-300 ease-in-out hover:scale-110' 
                 />
             </div>
 
             <div className='px-4 pb-4'>
                 <p className="mt-2 text-xs text-gray-600 line-clamp-2">
-                    <span className="font-bold text-black text-sm">{product.name}</span> - {product.description}
+                    <span className="text-sm font-bold text-black">{product.name}</span> - {product.description}
                 </p>
-                <p className='text-sm mt-2'>
+                <p className='mt-2 text-sm'>
                     {
                         product.discount > 0 && (
-                            <span className='text-xs me-2 text-red-500'>
+                            <span className='text-xs text-red-500 me-2'>
                                 <s>Rp. {product.price}</s>
                             </span>
 
