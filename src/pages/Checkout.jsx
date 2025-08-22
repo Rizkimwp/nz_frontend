@@ -7,9 +7,11 @@ import ErrorBoundary from "../components/boundary/ErrorBoundary";
 import Swal from "sweetalert2";
 
 const Checkout = () => {
-  const { cart, removeFromCart,clearCart } = useCartStore();
+  const { cart, removeFromCart, clearCart } = useCartStore();
   const { selectedAddress, couriers } = useAddressStore();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("");
+
   //selectedCourierGroup
 
   const [selectedCourierGroup, setSelectedCourierGroup] = useState("");
@@ -36,7 +38,10 @@ const Checkout = () => {
       Swal.fire("Peringatan", "Harap lengkapi alamat dan kurir", "warning");
       return;
     }
-
+    if (!paymentMethod) {
+      Swal.fire("Peringatan", "Silakan pilih metode pembayaran", "warning");
+      return;
+    }
     const courierData = JSON.parse(selectedCourier);
 
     const payload = {
@@ -50,6 +55,7 @@ const Checkout = () => {
         quantity: item.quantity,
       })),
       total: calculateTotalProductPrice() + courierData.cost,
+      payment_method: paymentMethod, // ⬅️ ini penting
     };
 
     try {
@@ -337,6 +343,23 @@ const Checkout = () => {
                     )}
                   </span>
                 </div>
+                <div className="mt-4 ">
+                  <label className="block mb-2 font-semibold">
+                    Metode Pembayaran
+                  </label>
+                  <select
+                    value={paymentMethod}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    className="w-full p-2 border rounded"
+                  >
+                    <option value="">Pilih Metode</option>
+                    <option value="bank_transfer">
+                      Transfer Virtual Account
+                    </option>
+                    <option value="qris">QRIS</option>
+                  </select>
+                </div>
+
                 <button
                   onClick={handleCheckout}
                   className="w-full py-2 mt-10 text-white bg-red-600 rounded hover:bg-red-700"

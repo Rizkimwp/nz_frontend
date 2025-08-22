@@ -8,6 +8,7 @@ export const useGetDestinationQuery = (search) => {
             const { data } = await axiosInstance.get('/api/raja-ongkir/destination', {
                 params: { search }
             });
+            console.log(data);
             return data;
         },
         {
